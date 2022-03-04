@@ -11,6 +11,14 @@
 ```
 # ./pydump.py 80 443
 ```
+
+#### Download and use locally or on your server:
+```
+# wget https://github.com/vjwilson1987/Pydump/blob/master/pydump.py
+# chmod +x pydump.py
+# ./pydump.py 80 443
+```
+
 #### Sample output:
 
 ```
