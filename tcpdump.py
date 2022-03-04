@@ -87,33 +87,15 @@ def main():
         if (string != ""):                                                 ### To remove empty strings from the list ips_list
             ipv4_list_without_empty.append(string)
 
-    #print(ipv4_list_without_empty)
-    
-    #OR
-    #ipv4_list_without_empty = [ele for ele in ips_list if ele != []]        ### To remove empty strings from the list ips_list
-    #print(ipv4_list_without_empty)
-    
-    #total arguments
     n = len(sys.argv)     #because sys.argv[0] is the script itself, so minus 1 is the correct number of arguments passed
 
     if (n - 1) > 0:
         print("\nTotal number of arguments passed: ", n-1)
     else:
-        #sys.exit("No arguments passed" + str(usage()))
         print("\nNo arguments passed\n")
         usage()
         sys.exit("Exiting...\n")
 
-    #name of the python script
-    #print("\nName of the script: ", sys.argv[0])
-
-    #print the arguments
-    #print("\nArguments passed: ")
-    #for i in range(1, n):
-    #    print(sys.argv[i], end=" ")
-
-    #print("\n")
-    
     port_list_without_empty = sys.argv[1:]
     
     tcpdump_cmd = form_command(ipv4_list_without_empty,port_list_without_empty)
