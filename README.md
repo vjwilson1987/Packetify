@@ -6,19 +6,32 @@
 
 > Using Pydump, you only need to pass the port numbers as arguments, rest will be taken care by Pydump.
 
-#### Usage:
+#### prerequisites:
+##### tcpdump command-line utility.
 
+#### Install tcpdump on an rpm based machine.
 ```
-# ./pydump.py 80 443
+# yum install tcpdump -y
+```
+#### Install tcpdump on a debian based machine.
+```
+# apt install tcpdump -y
 ```
 
-#### Download and use locally or on your server:
+
+
+#### Download and use it locally or on your server:
 ```
 # wget https://github.com/vjwilson1987/Pydump/blob/master/pydump.py
 # chmod +x pydump.py
 # ./pydump.py 80 443
 ```
 
+#### Usage:
+
+```
+# ./pydump.py 80 443
+```
 #### Sample output:
 
 ```
