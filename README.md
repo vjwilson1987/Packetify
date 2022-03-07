@@ -22,7 +22,7 @@
 
 #### Download and use it locally or on your server:
 ```
-# wget https://github.com/vjwilson1987/Pydump/blob/master/pydump.py
+# wget https://raw.githubusercontent.com/vjwilson1987/Pydump/master/pydump.py
 # chmod +x pydump.py
 # ./pydump.py 80 443
 ```
