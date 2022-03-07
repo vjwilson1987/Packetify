@@ -12,13 +12,14 @@ def cmd_execute(tcpdump_cmd):
     
     LOG_FILE = "tcpdump.log"
     
-    # Creates a new file
-    #with open(LOG_FILE, 'w') as fp:
-    #    pass
-
-    file = open(LOG_FILE,"r+")      ## Erase current content of the log file tcpdump.log
-    file.truncate(0)
-    file.close()
+    path = 'LOG_FILE'
+    
+    if os.path.exists(path) == True:
+        file = open(LOG_FILE,"r+")   ## Erase old content of the log file tcpdump.log
+        file.truncate(0) 
+        file.close()
+    else:
+        f = open(LOG_FILE, "w")      ## Create a new file if it does not exist
     
     logger = logging.getLogger(__name__)
 
