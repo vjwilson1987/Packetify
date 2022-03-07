@@ -13,8 +13,8 @@ def cmd_execute(tcpdump_cmd):
     LOG_FILE = "tcpdump.log"
     
     # Creates a new file
-    with open(LOG_FILE, 'w') as fp:
-        pass
+    #with open(LOG_FILE, 'w') as fp:
+    #    pass
 
     file = open(LOG_FILE,"r+")      ## Erase current content of the log file tcpdump.log
     file.truncate(0)
