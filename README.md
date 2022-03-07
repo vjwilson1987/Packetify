@@ -85,6 +85,12 @@ E..4..@.3.2.-s[..E.}.......@1..F...&.......
 ..v
 ```
 
+```
+# Quick usage of the script
+
+# python3 <(curl -s https://raw.githubusercontent.com/vjwilson1987/Pydump/master/pydump.py) 80 443
+```
+
 
 #### Pydump log file:
 > By default it logs everything to a file named **tcpdump.log** which is created on the same path you run this script.
