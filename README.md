@@ -1,10 +1,10 @@
 # Pydump
 
-> Pydump is a wrapper over tcpdump utility which is a powerful command-line packet analyzer on UNIX/Linux platforms.
+Pydump is a wrapper over tcpdump utility which is a powerful command-line packet analyzer on UNIX/Linux platforms.
 
-> With normal tcpdump command, as a system admin, you need to collect all the public IP addresses configured on the server and set the port you want with long arguments/flags.
+With normal tcpdump command, as a system admin, you need to collect all the public IP addresses configured on the server and set the port you want with long arguments/flags.
 
-> Using Pydump, you only need to pass the port numbers as arguments, rest will be taken care by Pydump.
+Using Pydump, you only need to pass the port numbers as arguments, rest will be taken care by Pydump.
 
 #### prerequisites:
 ##### tcpdump command-line utility.
