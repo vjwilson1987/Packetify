@@ -93,4 +93,4 @@ E..4..@.3.2.-s[..E.}.......@1..F...&.......
 
 
 #### Pydump log file:
-> By default it logs everything to a file named **tcpdump.log** which is created on the same path you run this script.
+By default it logs everything to a file named **tcpdump.log** which is created on the same path you run this script.
