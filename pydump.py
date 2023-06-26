@@ -78,6 +78,8 @@ def form_command(ipv4_tcpdump,port_list):
 def is_root():
     if os.geteuid() != 0:
         exit("You need to have root privileges to run this script.\nPlease try again, this time using 'sudo'. Exiting.")
+    else:
+	print("You are running the script as root user")
 
 def usage():
     print("Usage:\n\t" + sys.argv[0] + " <port> <port>\n")
