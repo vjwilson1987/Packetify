@@ -52,7 +52,7 @@ Total number of arguments passed:  1
 
 Command to run:
 
-		tcpdump -nn -tttt -A -i eth0 "(dst host 192.168.1.2 or dst host 192.168.1.3) and (dst port 80)" 
+		tcpdump -nn -tttt -A -i eth0 "(dst host 59.x.x.2 or dst host 59.x.x.3) and (dst port 80)" 
 
 Proceed? Yes|yes|Y|y / No|no|N|n: n
 
@@ -62,27 +62,31 @@ Chose to exit. Goodbye
 ```
 # ./pydump.py 80 443
 
-Total number of arguments passed:  2
+Total number of arguments passed: 2
 
 Command to run:
 
-		tcpdump -nn -tttt -A -i eth0 "(dst 192.168.1.2 or dst host 192.168.1.3) and (dst port 80 or dst port 443)" 
+		tcpdump -nn -tttt -A -i eth0 "(dst host 59.x.x.x) and (dst port 80 or dst port 443)"
 
-Proceed? Yes|yes|Y|y / No|no|N|n: y
-tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
-listening on eth0, link-type EN10MB (Ethernet), capture size 262144 bytes
-2022-03-04 15:34:46.115903 IP 45.x.x.x.64470 > 192.168.1.2.443: Flags [.], ack 4174720456, win 501, options [nop,nop,TS val 830943008 ecr 169058905], length 0
-E..4..@.1...-s[..E.}....C.i...-......v.....
-1./
-..Y
-2022-03-04 15:34:46.115969 IP 45.x.x.x.64470 > 192.168.1.2.443: Flags [F.], seq 0, ack 2, win 501, options [nop,nop,TS val 830943009 ecr 169058905], length 0
-E..4..@.1...-s[..E.}....C.i...-......s.....
-1./!
-..Y
-2022-03-04 15:34:46.912858 IP 45.x.x.x.35323 > 192.168.1.2.443: Flags [.], ack 822209606, win 1318, options [nop,nop,TS val 830943810 ecr 169059702], length 0
-E..4..@.3.2.-s[..E.}.......@1..F...&.......
-1.2B
-..v
+Proceed? yes|y / no|n: y
+tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
+listening on eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
+2024-03-10 19:43:58,130 - pydump - INFO - 2024-03-10 19:43:57.539949 IP 81.x.x.x.56629 > 59.x.x.x.443: Flags [S], seq 3466351037, win 65535, options [mss 1460,nop,wscale 6,nop,nop,TS val 137554078 ecr 0,sackOK,eol], length 0
+2024-03-10 19:43:58,131 - pydump - INFO - E..@....4..G...`_....5....Q.........Lo.............
+2024-03-10 19:43:58,131 - pydump - INFO - .2..........
+2024-03-10 19:43:58,132 - pydump - INFO - 2024-03-10 19:43:57.541997 IP 81.x.x.x.56630 > 59.x.x.x.443: Flags [S], seq 4093737496, win 65535, options [mss 1460,nop,wscale 6,nop,nop,TS val 1533796160 ecr 0,sackOK,eol], length 0
+2024-03-10 19:43:58,132 - pydump - INFO - E..@....4..G...`_....6....z........................
+2024-03-10 19:43:58,132 - pydump - INFO - [k.@........
+2024-03-10 19:43:58,132 - pydump - INFO - 2024-03-10 19:43:57.554493 IP 81.x.x.x.56629 > 59.x.x.x.443: Flags [.], ack 1631265285, win 2053, options [nop,nop,TS val 137554093 ecr 1524608929], length 0
+2024-03-10 19:43:58,132 - pydump - INFO - E..4....4..S...`_....5....Q.a;"......Y.....
+2024-03-10 19:43:58,132 - pydump - INFO - .2..Z...
+2024-03-10 19:43:58,133 - pydump - INFO - 2024-03-10 19:43:57.554494 IP 81.x.x.x.56630 > 59.x.x.x.443: Flags [.], ack 1004221362, win 2053, options [nop,nop,TS val 1533796175 ecr 1524608929], length 0
+2024-03-10 19:43:58,133 - pydump - INFO - E..4....4..S...`_....6....z.;.3.....rp.....
+2024-03-10 19:43:58,133 - pydump - INFO - [k.OZ...
+2024-03-10 19:43:58,133 - pydump - INFO - 2024-03-10 19:43:57.555606 IP 81.x.x.x.56629 > 59.x.x.x.443: Flags [P.], seq 0:576, ack 1, win 2053, options [nop,nop,TS val 137554093 ecr 1524608929], length 576
+2024-03-10 19:43:58,133 - pydump - INFO - E..t....4......`_....5....Q.a;"............
+2024-03-10 19:43:58,133 - pydump - INFO - .2..Z.......;...7...o...S.....($..2L`S..1y...`R]... <.....)..C?..2.Ls |..z.]"^$...r\. .........+./.,.0............./.5....jj.........................+.................#...
+2024-03-10 19:43:58,134 - pydump - INFO - .
 ```
 
 
