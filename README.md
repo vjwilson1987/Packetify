@@ -52,7 +52,7 @@ Total number of arguments passed:  1
 
 Command to run:
 
-		tcpdump -nn -tttt -A -i eth0 "(dst host 192.168.1.2 or dst host 192.168.1.3) and (dst port 80)" 
+		tcpdump -nn -tttt -A -i eth0 "(dst host 59.x.x.2 or dst host 59.x.x.3) and (dst port 80)" 
 
 Proceed? Yes|yes|Y|y / No|no|N|n: n
 
@@ -66,7 +66,7 @@ Total number of arguments passed: 2
 
 Command to run:
 
-		tcpdump -nn -tttt -A -i eth0 "(dst host 95.217.232.161) and (dst port 80 or dst port 443)"
+		tcpdump -nn -tttt -A -i eth0 "(dst host 59.x.x.x) and (dst port 80 or dst port 443)"
 
 Proceed? yes|y / no|n: y
 tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
