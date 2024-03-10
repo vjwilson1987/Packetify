@@ -22,20 +22,20 @@ Using Pydump, you only need to pass the port numbers as arguments, rest will be 
 
 #### Download and use it locally or on your server:
 ```
-# wget https://raw.githubusercontent.com/vjwilson1987/Pydump/master/pydump.py
-# chmod +x pydump.py
-# ./pydump.py 80 443
+curl -o pydump https://raw.githubusercontent.com/vjwilson1987/Pydump/master/pydump.py
+chmod +x pydump
+sudo install -m 755 pydump /usr/local/bin
 ```
 
 #### Usage:
 
 ```
-# ./pydump.py 80 443
+pydump 80 443
 ```
 #### Sample output:
 
 ```
-# ./pydump.py 
+# pydump 
 
 No arguments passed
 
@@ -46,7 +46,7 @@ Exiting...
 ```
 
 ```
-# ./pydump.py 80
+# pydump 80
 
 Total number of arguments passed:  1
 
@@ -60,7 +60,7 @@ Chose to exit. Goodbye
 ```
 
 ```
-# ./pydump.py 80 443
+# pydump 80 443
 
 Total number of arguments passed: 2
 
@@ -88,13 +88,6 @@ listening on eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
 2024-03-10 19:43:58 UTC - pydump - INFO - .2..Z.......;...7...o...S.....($..2L`S..1y...`R]... <.....)..C?..2.Ls |..z.]"^$...r\. .........+./.,.0............./.5....jj.........................+.................#...
 2024-03-10 19:43:58 UTC - pydump - INFO - .
 ```
-
-
-### Quick usage of the script
-```
-# python3 <(curl -s https://raw.githubusercontent.com/vjwilson1987/Pydump/master/pydump.py) 80 443
-```
-
 
 #### Pydump log file:
 By default it logs everything to a file named **tcpdump.log** with the system date, time and timezone which is created on the same location you run this script.
