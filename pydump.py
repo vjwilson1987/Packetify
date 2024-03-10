@@ -11,6 +11,12 @@ import logging
 import sys
 import pytz
 import tzlocal
+import argparse
+
+# Global variables
+version = "v2.0.0"
+GREEN = '\033[92m'
+RESET = '\033[0m'
 
 def cmd_execute(tcpdump_cmd):
     LOG_FILE = "tcpdump.log"
@@ -92,23 +98,31 @@ def is_root():
     if not os.geteuid() == 0:
         print("This script must be run as root.")
         sys.exit(1)
-
-def usage():
-    print("Usage:\n\t" + sys.argv[0] + " <port> <port>\n")
-    
+          
 def main():
 
     is_root()
 
-    if len(sys.argv) <= 1:  #sys.argv[0] is one argument already and is the script itself
-        print("\nNo arguments passed.")
-        usage()
-        sys.exit("Exiting...\n")
+    description = GREEN + 'Pydump is a wrapper over tcpdump utility to monitor network traffic on specific ports. It is designed to run on Linux systems' + RESET
+    parser = argparse.ArgumentParser(description=description, add_help=False, conflict_handler='error')
 
-    print("\nTarget ports are:", " ".join(sys.argv[1:]))
+    exclusive_group = parser.add_mutually_exclusive_group() # Create a mutually exclusive group for the two options --ports and --version. This ensures that only one of the two options can be used at a time.
+    exclusive_group.add_argument('--ports', nargs='+', help='List of ports to monitor') # Add the --ports option
+    exclusive_group.add_argument('--version', action='version', version='Pydump {}'.format(version), help='Check the version') # Add the --version option
 
-    ports = sys.argv[1:]
-    
+    args = parser.parse_args()
+
+    if not hasattr(args, 'version') and not args.ports:
+        parser.print_help()
+        sys.exit(1)
+
+    if hasattr(args, 'version'):
+        sys.exit()
+
+    print("\nTarget ports are:", " ".join(args.ports))
+
+    ports = args.ports
+
     ipv4_addresses = get_ips()  # Get the IP addresses of the machine
 
     tcpdump_cmd = form_command(ipv4_addresses,ports)
