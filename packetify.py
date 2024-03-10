@@ -25,7 +25,7 @@ def cmd_execute(tcpdump_cmd):
     with open(LOG_FILE, "w") as file:  # Create or truncate the log file
             file.truncate(0)
 
-    logger = logging.getLogger("pydump") # Create a logger object
+    logger = logging.getLogger("packetify") # Create a logger object
     logger.setLevel(logging.INFO) # Set the log level
 
     # Create a file handler and set its log level
@@ -103,12 +103,12 @@ def main():
 
     is_root()
 
-    description = GREEN + 'Pydump is a wrapper over tcpdump utility to monitor network traffic on specific ports. It is designed to run on Linux systems' + RESET
+    description = GREEN + 'Packetify is a wrapper over tcpdump utility to monitor network traffic on specific ports. It is designed to run on Linux systems' + RESET
     parser = argparse.ArgumentParser(description=description, add_help=False, conflict_handler='error')
 
     exclusive_group = parser.add_mutually_exclusive_group() # Create a mutually exclusive group for the two options --ports and --version. This ensures that only one of the two options can be used at a time.
     exclusive_group.add_argument('--ports', nargs='+', help='List of ports to monitor') # Add the --ports option
-    exclusive_group.add_argument('--version', action='version', version='Pydump {}'.format(version), help='Check the version') # Add the --version option
+    exclusive_group.add_argument('--version', action='version', version='Packetify {}'.format(version), help='Check the version') # Add the --version option
 
     args = parser.parse_args()
 
