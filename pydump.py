@@ -104,7 +104,7 @@ def main():
         usage()
         sys.exit("Exiting...\n")
 
-    print(f"\nTotal number of arguments passed: {len(sys.argv) - 1}")
+    print("\nTarget ports are:", " ".join(sys.argv[1:]))
 
     ports = sys.argv[1:]
     
