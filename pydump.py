@@ -50,91 +50,62 @@ def cmd_execute(tcpdump_cmd):
 
     rc = process.poll()
 
-def form_command(ipv4_tcpdump,port_list):
-    
-    os1_cmd_begin = "tcpdump -nn -tttt -A -i eth0 \"(dst host "
-    os1_cmd_middle = "or dst host"
-    os1_cmd_end = ") "
+def form_command(ipv4_addresses,ports):
 
-    ip_list_len = len(ipv4_tcpdump) - 1
+    base_cmd = "tcpdump -nn -tttt -A -i eth0 "
+    
+    # Concatenate each IP address with the desired string format and join them with 'or'
+    dst_hosts = '(' + ' or '.join([f"dst host {ip}" for ip in ipv4_addresses]) + ')'
+    
+    # Concatenate each port with the desired string format and join them with 'or'
+    dst_ports = '(' + ' or '.join([f"dst port {port}" for port in ports]) + ')'
 
-    for indx, val in enumerate(ipv4_tcpdump):
-        if indx == 0:
-            os1_cmd_begin = os1_cmd_begin + val 
-        elif ((indx > 0) and (ip_list_len < len(ipv4_tcpdump))):
-            os1_cmd_begin = os1_cmd_begin + " " + os1_cmd_middle + " " + val
-        else:
-            os1_cmd_begin = os1_cmd_begin + " " + val
-    
-    os1_cmd = os1_cmd_begin + os1_cmd_end
-    
-    os2_cmd_begin = "and (dst port "
-    os2_cmd_middle = "or dst port"
-    os2_cmd_end = ")\" "
-    
-    port_list_len = len(port_list) - 1 
+    final_cmd = base_cmd + '"' + dst_hosts + " and " + dst_ports + '"'
 
-    for indx, val in enumerate(port_list):
-        if indx == 0:
-            os2_cmd_begin = os2_cmd_begin + val 
-        elif ((indx > 0) and (port_list_len < len(port_list))):
-            os2_cmd_begin = os2_cmd_begin + " " + os2_cmd_middle + " " + val
-        else:
-            os2_cmd_begin = os2_cmd_begin + " " + val
+    return final_cmd
 
-    os2_cmd = os2_cmd_begin + os2_cmd_end
-    
-    return os1_cmd + os2_cmd
+def get_ips():
+    ipv4_regex = r'\b[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\b'
+    ip_cmd = f"ip a s eth0 | egrep -o 'inet {ipv4_regex}' | cut -d' ' -f2"
+    x = os.popen(ip_cmd).read()
+    ipv4_addresses = [ip for ip in x.split('\n') if ip.strip()] #strip() removes any leading or trailing whitespaces
+    return ipv4_addresses
 
 def is_root():
-    if os.geteuid() != 0:
-        exit("You need to have root privileges to run this script.\nPlease try again, this time using 'sudo'. Exiting.")
-    else:
-	    print("You are running the script as root user")
+    if not os.geteuid() == 0:
+        print("This script must be run as root.")
+        sys.exit(1)
 
 def usage():
     print("Usage:\n\t" + sys.argv[0] + " <port> <port>\n")
     
 def main():
+
     is_root()
-            
-    ipv4_regex = r'[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'
-    ip_cmd = f"ip a s eth0 | egrep -o 'inet {ipv4_regex}' | cut -d' ' -f2"
-    x = os.popen(ip_cmd).read()
-    ipv4_list = x.split('\n')                                                ### The split() method splits a string into a list.
-    ipv4_list_without_empty = []
 
-    for string in ipv4_list:
-        if (string != ""):                                                 ### To remove empty strings from the list ips_list
-            ipv4_list_without_empty.append(string)
-
-    n = len(sys.argv)     #because sys.argv[0] is the script itself, so minus 1 is the correct number of arguments passed
-
-    if (n - 1) > 0:
-        print("\nTotal number of arguments passed: ", n-1)
-    else:
-        print("\nNo arguments passed\n")
+    if len(sys.argv) <= 1:  #sys.argv[0] is one argument already and is the script itself
+        print("\nNo arguments passed.")
         usage()
         sys.exit("Exiting...\n")
 
-    port_list_without_empty = sys.argv[1:]
+    print(f"\nTotal number of arguments passed: {len(sys.argv) - 1}")
+
+    ports = sys.argv[1:]
     
-    tcpdump_cmd = form_command(ipv4_list_without_empty,port_list_without_empty)
-    
+    ipv4_addresses = get_ips()  # Get the IP addresses of the machine
+
+    tcpdump_cmd = form_command(ipv4_addresses,ports)
+
     print("\nCommand to run:\n\n\t\t" + tcpdump_cmd) 
     
-    ch = input("\nProceed? Yes|yes|Y|y / No|no|N|n: ")
-    ch_lower = ch.lower()
+    ch = input("\nProceed? yes|y / no|n: ").lower()
 
-    if (ch_lower == 'yes') | (ch_lower == 'y'):
+    if ch in ('yes', 'y'):
         cmd_execute(tcpdump_cmd)
-    elif (ch_lower == 'no') | (ch_lower == 'n'):
-        sys.exit("\nChose to exit. Goodbye\n")
+    elif ch in ('no', 'n'):
+        sys.exit("\nChose to exit. Goodbye.\n")
     else:
-        print("\nInvalid choice\n")
-
+        print("\nInvalid choice.\n")
 
 if __name__ == "__main__":
     main()
-
-#script ends here
