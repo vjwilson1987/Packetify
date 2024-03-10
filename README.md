@@ -6,8 +6,8 @@ With normal tcpdump command, as a system admin, you need to collect all the publ
 
 Using Pydump, you only need to pass the port numbers as arguments, rest will be taken care by Pydump.
 
-#### prerequisites:
-##### tcpdump command-line utility.
+### Prerequisites
+- tcpdump
 
 #### Install tcpdump on an rpm based machine.
 ```
@@ -20,19 +20,21 @@ Using Pydump, you only need to pass the port numbers as arguments, rest will be 
 
 
 
-#### Download and use it locally or on your server:
+### Install Pydump
 ```
 curl -o pydump https://raw.githubusercontent.com/vjwilson1987/Pydump/master/pydump.py
 chmod +x pydump
 sudo install -m 755 pydump /usr/local/bin
 ```
 
-#### Usage:
+### Usage
 
 ```
-pydump 80 443
+  --ports PORTS [PORTS ...]
+                        List of ports to monitor
+  --version             Check the version
 ```
-#### Sample output:
+#### Sample output
 
 ```
 # pydump 
@@ -89,5 +91,5 @@ listening on eth0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
 2024-03-10 19:43:58 UTC - pydump - INFO - .
 ```
 
-#### Pydump log file:
+### Logging
 By default it logs everything to a file named **tcpdump.log** with the system date, time and timezone which is created on the same location you run this script.
