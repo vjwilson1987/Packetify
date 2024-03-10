@@ -10,23 +10,35 @@ import logging
 import sys
 
 def cmd_execute(tcpdump_cmd):
-    
     LOG_FILE = "tcpdump.log"
-    
     path = 'LOG_FILE'
-    
-    if os.path.exists(path) == True:
-        file = open(LOG_FILE,"r+")   ## Erase old content of the log file tcpdump.log
-        file.truncate(0) 
-        file.close()
-    else:
-        f = open(LOG_FILE, "w")      ## Create a new file if it does not exist
-    
-    logger = logging.getLogger(__name__)
 
-    logging.basicConfig(level=logging.INFO,filename=LOG_FILE,format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    with open(LOG_FILE, "w") as file:  # Create or truncate the log file
+            file.truncate(0)
 
-    process = subprocess.Popen(shlex.split(tcpdump_cmd),shell=False,stdout=subprocess.PIPE)
+    logger = logging.getLogger("pydump") # Create a logger object
+    logger.setLevel(logging.INFO) # Set the log level
+
+    # Create a file handler and set its log level
+    file_handler = logging.FileHandler(LOG_FILE)
+    file_handler.setLevel(logging.INFO)
+
+    # Create a stream handler (to stream to console) and set its log level
+    stream_handler = logging.StreamHandler()
+    stream_handler.setLevel(logging.INFO)
+
+    # Define the log message format
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+    # Set the formatter for both handlers
+    file_handler.setFormatter(formatter)
+    stream_handler.setFormatter(formatter)
+
+    # Add the handlers to the logger
+    logger.addHandler(file_handler)
+    logger.addHandler(stream_handler)
+
+    process = subprocess.Popen(shlex.split(tcpdump_cmd), shell=False, stdout=subprocess.PIPE)
 
     # Poll process.stdout to show stdout live
     while True:
@@ -34,11 +46,10 @@ def cmd_execute(tcpdump_cmd):
         if process.poll() is not None:
             break
         if output:
-            logger.log(logging.INFO, output)
-            print(output.strip())
-    
+            logger.info(output.strip())
+
     rc = process.poll()
-        
+
 def form_command(ipv4_tcpdump,port_list):
     
     os1_cmd_begin = "tcpdump -nn -tttt -A -i eth0 \"(dst host "
@@ -79,7 +90,7 @@ def is_root():
     if os.geteuid() != 0:
         exit("You need to have root privileges to run this script.\nPlease try again, this time using 'sudo'. Exiting.")
     else:
-	print("You are running the script as root user")
+	    print("You are running the script as root user")
 
 def usage():
     print("Usage:\n\t" + sys.argv[0] + " <port> <port>\n")
