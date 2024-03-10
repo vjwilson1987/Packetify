@@ -37,34 +37,36 @@ sudo install -m 755 pydump /usr/local/bin
 #### Sample output
 
 ```
-# pydump 
+# pydump
+usage: pydump [--ports PORTS [PORTS ...] | --version]
 
-No arguments passed
+Pydump is a wrapper over tcpdump utility to monitor network traffic on specific ports. It is
+designed to run on Linux systems
 
-Usage:
-	./pydump.py <port> <port>
-
-Exiting...
+options:
+  --ports PORTS [PORTS ...]
+                        List of ports to monitor
+  --version             Check the version
 ```
 
 ```
-# pydump 80
+# pydump --ports 80
 
-Total number of arguments passed:  1
+Target ports are: 80
 
 Command to run:
 
-		tcpdump -nn -tttt -A -i eth0 "(dst host 59.x.x.2 or dst host 59.x.x.3) and (dst port 80)" 
+		tcpdump -nn -tttt -A -i eth0 "(dst host 59.x.x.x) and (dst port 80)"
 
-Proceed? Yes|yes|Y|y / No|no|N|n: n
+Proceed? yes|y / no|n: n
 
-Chose to exit. Goodbye
+Chose to exit. Goodbye.
 ```
 
 ```
-# pydump 80 443
+# pydump --ports 80 443
 
-Total number of arguments passed: 2
+Target ports are: 80 443
 
 Command to run:
 
