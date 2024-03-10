@@ -8,6 +8,8 @@ import subprocess
 import shlex
 import logging
 import sys
+import pytz
+import tzlocal
 
 def cmd_execute(tcpdump_cmd):
     LOG_FILE = "tcpdump.log"
@@ -27,8 +29,22 @@ def cmd_execute(tcpdump_cmd):
     stream_handler = logging.StreamHandler()
     stream_handler.setLevel(logging.INFO)
 
+    # Get the system timezone
+    system_timezone = tzlocal.get_localzone()
+
     # Define the log message format
-    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S %Z')
+    formatter.default_time_format = '%Y-%m-%d %H:%M:%S'
+    formatter.default_msec_format = '%s.%03d'
+
+    # Set the timezone for the formatter
+    '''In this modified version:
+
+    We import pytz and tzlocal to get the system timezone.
+    We use tzlocal.get_localzone() to obtain the system timezone.
+    We set the timezone for the formatter using formatter.default_timezone = pytz.timezone(str(system_timezone)), ensuring that the log messages are timestamped with the system timezone.'''
+    
+    formatter.default_timezone = pytz.timezone(str(system_timezone))
 
     # Set the formatter for both handlers
     file_handler.setFormatter(formatter)
